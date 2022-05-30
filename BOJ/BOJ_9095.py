@@ -1,16 +1,12 @@
-import sys
-
-def cal(a):
-    if a == 1:
+def solution(x):
+    if x == 1:
         return 1
-    if a == 2:
+    elif x == 2:
         return 2
-    if a == 3:
+    elif x == 3:
         return 4
     else:
-        return cal(n-1) + cal(n-2) + cal(n-3)
+        return solution(x-1) + solution(x-2) + solution(x-3)
 
-n = int(input())
-for i in range(n):
-    data = int(input())
-    print(cal(data))
+for _ in range(int(input())):
+    print(solution(int(input())))
