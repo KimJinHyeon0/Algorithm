@@ -1,23 +1,24 @@
+from copy import deepcopy
 N = int(input())
-weights = list(map(int, input().split()))
+marbel_l = list(map(int, input().split()))
+result = 0
 
-maximum = 0
+def bfs(i, m_l, tmp, cnt):
+    global result
 
-def dfs( total, arr):
-    global maximum
+    cp = deepcopy(m_l)
+    tmp += (cp[i-1] * cp[i+1])
+    cp.pop(i)
+    cnt -= 1
 
-    if len(arr) == N-2:
-        maximum = max(total, maximum)
+    if cnt == 2:
+        result = max(result, tmp)
         return
 
-    for i in range(1, len(arr)-1):
+    for i in range(1, cnt-1):
+        bfs(i, cp, tmp, cnt)
 
-        total += (temp[i-1] * temp[i+1])
-        del temp[i]
-        dfs(total, temp)
+for i in range(1, N-1):
+    bfs(i, marbel_l, 0, N)
 
-dfs(1, 0, weights)
-print(maximum)
-
-n = int(input())
-data = list(map(int, input().split()))
+print(result)
