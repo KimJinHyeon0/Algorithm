@@ -1,10 +1,10 @@
 N = int(input())
-decimal = [0] * 27
+decimal = [0] * 26
 
 for _ in range(N):
     tmp = list(map(str, input()))
     for i, k in enumerate(reversed(tmp)):
-        decimal[ord(k)-64] += 10**i
+        decimal[ord(k)-65] += 10**i
 decimal.sort(reverse=True)
 result = 0
 cnt = 9
