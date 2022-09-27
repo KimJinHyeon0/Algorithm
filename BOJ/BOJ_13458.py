@@ -7,11 +7,11 @@ N = int(input())
 A = list(map(int, input().split()))
 B, C = map(int, input().split())
 
-answer = 0
+result = 0
 for x in A:
     if x - B <= 0:
-        answer += 1
+        result += 1
     else:
-        answer += ceil((x - B) / C) + 1
+        result += ceil((x - B) / C) + 1
 
-print(answer)
+print(result)

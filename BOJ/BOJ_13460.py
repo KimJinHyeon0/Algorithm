@@ -8,7 +8,7 @@ def move(x, y, dx, dy, c):
     return x, y, c
 
 def BFS(rx, ry, bx, by):
-    global answer
+    global result
     queue = deque()
     queue.append((rx, ry, bx, by, 1))
 
@@ -51,6 +51,6 @@ for i in range(N):
 
 visited = [[[[False] * M for _ in range(N)] for _ in range(M)] for _ in range(N)]
 visited[rx][ry][bx][by] = True
-answer = -1
+result = -1
 BFS(rx, ry, bx, by)
-print(answer)
+print(result)

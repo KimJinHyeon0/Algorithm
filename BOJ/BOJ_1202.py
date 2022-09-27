@@ -1,17 +1,8 @@
-import sys
-
-input = lambda : sys.stdin.readline()
-
-#N, K
 N, K = map(int, input().split())
 
-#jew 정의
 jew = [list(map(int, input().split())) for _ in range(N)]
-
-#bag 정의
 bag = [int(input())for _ in range(K)]
 
-#main
 bag.sort() # 작은 무게의 가방부터 검사
 heap = []
 tot = 0 # 보석 가격의 총합

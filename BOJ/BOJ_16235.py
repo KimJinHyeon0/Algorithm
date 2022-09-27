@@ -31,8 +31,8 @@ for _ in range(K):
                             tree[x][y].insert(0, 1)
             table[i][j] += A[i][j]
 
-answer = 0
+result = 0
 for i in range(N):
     for j in range(N):
-        answer += len(tree[i][j])
-print(answer)
+        result += len(tree[i][j])
+print(result)

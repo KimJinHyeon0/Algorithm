@@ -17,7 +17,7 @@ N, M = map(int, input().split())
 
 table = list(list(map(int, input().split())) for _ in range(N))
 directions = [(0, 1), (1, 0), (-1, 0), (0, -1)]
-answer = 0
+result = 0
 virus = []
 available = []
 wall = 0
@@ -36,7 +36,7 @@ for case in combinations(available, 3):
     copy = deepcopy(table)
     for p in case:
         copy[p[0]][p[1]] = 1
-    answer = max(answer, (N*M - (wall + 3) - BFS(cnt)))
+    result = max(result, (N * M - (wall + 3) - BFS(cnt)))
 
-print(answer)
+print(result)
 
