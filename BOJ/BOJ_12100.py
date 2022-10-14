@@ -1,117 +1,135 @@
+# 2048 (Easy)
+
 from copy import deepcopy
-from collections import deque
-n = int(input())
-s = []
-max_value = 0
-def dfs(dist, maps, cnt):
-    global max_value
-    copy_maps = deepcopy(maps)
-    if dist == 0:
-        for i in range(n):
-            temp = deque()
-            for j in range(n):
-                if copy_maps[j][i] != 0:
-                    temp.append(copy_maps[j][i])
-            num = 0
-            while num + 1 < len(temp):
-                if temp[num] == temp[num + 1]:
-                    temp[num] = 0
-                    temp[num + 1] *= 2
-                    num += 2
+
+
+def show(x):
+    for row in x:
+        print(*row)
+    print('-'*10)
+
+
+def move(d, mat):
+    # print(d)
+    if d == 0:   # 상
+        for i in range(N):
+            p = 0
+            x = 0
+            for j in range(N):
+                if mat[j][i] == 0:
+                    continue
+
+                if x == 0:
+                    x = mat[j][i]
                 else:
-                    num += 1
-            num = 0
-            while num < n:
-                if temp:
-                    a = temp.popleft()
-                    if a != 0:
-                        copy_maps[num][i] = a
-                        num += 1
+                    if x == mat[j][i]:
+                        mat[p][i] = x * 2
+                        x = 0
+                        p += 1
+                    else:
+                        mat[p][i], x = x, mat[j][i]
+                        p += 1
+
+                mat[j][i] = 0
+
+            if x != 0:
+                mat[p][i] = x
+
+    elif d == 1:  # 하
+        for i in range(N):
+            p = N-1
+            x = 0
+
+            for j in range(N-1, -1, -1):
+                if mat[j][i] == 0:
+                    continue
+                if x == 0:
+                    x = mat[j][i]
                 else:
-                    copy_maps[num][i] = 0
-                    num += 1
-    elif dist == 1:
-        for i in range(n):
-            temp = deque()
-            for j in range(n - 1, -1, -1):
-                if copy_maps[j][i] != 0:
-                    temp.append(copy_maps[j][i])
-            num = 0
-            while num + 1 < len(temp):
-                if temp[num] == temp[num + 1]:
-                    temp[num] = 0
-                    temp[num + 1] *= 2
-                    num += 2
+                    if mat[j][i] == x:
+                        mat[p][i] = x * 2
+                        p -= 1
+                        x = 0
+                    else:
+                        mat[p][i], x = x, mat[j][i]
+                        p -= 1
+                mat[j][i] = 0
+                if x != 0:
+                    mat[p][i] = x
+
+
+
+    elif d == 2:  # 좌
+        for i in range(N):
+            p = 0
+            x = 0
+            for j in range(N):
+                if mat[i][j] == 0:
+                    continue
+
+                if x == 0:
+                    x = mat[i][j]
                 else:
-                    num += 1
-            num = n - 1
-            while num > -1:
-                if temp:
-                    a = temp.popleft()
-                    if a != 0:
-                        copy_maps[num][i] = a
-                        num -= 1
+                    if x == mat[i][j]:
+                        mat[i][p] = x * 2
+                        x = 0
+                        p += 1
+                    else:
+                        mat[i][p], x = x, mat[i][j]
+                        p += 1
+
+                mat[i][j] = 0
+
+            if x != 0:
+                mat[i][p] = x
+
+    elif d == 3:  # 우
+        for i in range(N):
+            p = N-1
+            x = 0
+            for j in range(N-1, -1, -1):
+                if mat[i][j] == 0:
+                    continue
+
+                if x == 0:
+                    x = mat[i][j]
                 else:
-                    copy_maps[num][i] = 0
-                    num -= 1
-    elif dist == 2:
-        for i in range(n):
-            temp = deque()
-            for j in range(n - 1, -1, -1):
-                if copy_maps[i][j] != 0:
-                    temp.append(copy_maps[i][j])
-            num = 0
-            while num + 1 < len(temp):
-                if temp[num] == temp[num + 1]:
-                    temp[num] = 0
-                    temp[num + 1] *= 2
-                    num += 2
-                else:
-                    num += 1
-            num = n - 1
-            while num > -1:
-                if temp:
-                    a = temp.popleft()
-                    if a != 0:
-                        copy_maps[i][num] = a
-                        num -= 1
-                else:
-                    copy_maps[i][num] = 0
-                    num -= 1
-    elif dist == 3:
-        for i in range(n):
-            temp = deque()
-            for j in range(n):
-                if copy_maps[i][j] != 0:
-                    temp.append(copy_maps[i][j])
-            num = 0
-            while num + 1 < len(temp):
-                if temp[num] == temp[num + 1]:
-                    temp[num] = 0
-                    temp[num + 1] *= 2
-                    num += 2
-                else:
-                    num += 1
-            num = 0
-            while num < n:
-                if temp:
-                    a = temp.popleft()
-                    if a != 0:
-                        copy_maps[i][num] = a
-                        num += 1
-                else:
-                    copy_maps[i][num] = 0
-                    num += 1
-    if cnt == 5:
-        for i in range(n):
-            max_value = max(max_value, max(copy_maps[i]))
+                    if x == mat[i][j]:
+                        mat[i][p] = x * 2
+                        x = 0
+                        p -= 1
+                    else:
+                        mat[i][p], x = x, mat[i][j]
+                        p -= 1
+
+                mat[i][j] = 0
+
+            if x != 0:
+                mat[i][p] = x
+    # show(mat)
+    return mat
+
+def check_max(table):
+    global result
+
+    for i in range(N):
+        for j in range(N):
+            result = max(table[i][j], result)
+
+def dfs(mat, cnt):
+    if cnt == 4:
+        check_max(mat)
         return
-    dfs(0, copy_maps, cnt + 1)
-    dfs(1, copy_maps, cnt + 1)
-    dfs(2, copy_maps, cnt + 1)
-    dfs(3, copy_maps, cnt + 1)
-for i in range(n):
-    s.append(list(map(int, input().split())))
+
+    for i in range(4):
+        dfs(move(i, deepcopy(mat)), cnt + 1)
+
+
+N = int(input())
+table = list(list(map(int, input().split())) for _ in range(N))
+result = 0
+# show(table)
 for i in range(4):
-    dfs(i, s, 1)
-print(max_value)
+    dfs(move(i, deepcopy(table)), 0)
+    # move(i, deepcopy(table))
+print(result)
